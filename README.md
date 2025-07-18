@@ -21,7 +21,7 @@ El sistema está construido utilizando el framework **Laravel 12** y utiliza **S
 
 #### Requisitos previos
 
-1. **PHP** versión 8.2 o superior.
+1. **PHP** versión 8.1 o superior.
 2. **Composer** para gestionar las dependencias de PHP.
 3. **SQLite** para la base de datos.
 4. **Node.js** y **NPM** para la gestión de dependencias del frontend.
@@ -110,6 +110,91 @@ Abre tu navegador y accede a `http://localhost:8000` para ver la aplicación en 
 2. Crea un nuevo proyecto o importa el repositorio existente
 3. El entorno se configurará automáticamente con todas las dependencias necesarias
 4. Comienza a desarrollar inmediatamente sin configuración adicional
+
+## Configuración Extra en Firebase Studio
+
+### 1. Variable de entorno en archivo .env de la raíz del proyecto
+
+Reemplaza `APP_URL=http://localhost` por la URL que nos entrega Firebase Studio:
+
+```env
+APP_URL=https://9000-firebase-ipss-dwi-25-2-clases-1751379241939.cluster-etsqrqvqyvd4erxx7qq32imrjk.cloudworkstations.dev
+```
+
+### 2. ServiceProvider.php
+
+Modifica el archivo `app/Providers/AppServiceProvider.php`. La función `boot` debe quedar de esta manera:
+
+```php
+use Illuminate\Support\Facades\URL;
+```
+
+```php
+public function boot(): void
+{
+    if (config('app.env') === 'local'){
+        URL::forceRootUrl(config('app.url'));
+        URL::forceScheme('https');
+    }
+}
+```
+
+### 3. Configuración Base de datos
+
+1. **Eliminar el archivo** en `database/database.sqlite`
+2. **Migrar la base de datos** para que se cree:
+
+```bash
+php artisan migrate
+```
+
+*Preguntará si queremos crear la base de datos SQLite, respondemos **YES***
+
+#### En Windows (instalación local)
+
+Volver a levantar Laravel:
+
+```bash
+php artisan serve
+```
+
+#### En Firebase Studio
+
+Recargar la página de la URL del proyecto.
+
+### Después de clonar el repositorio en Firebase Studio
+
+1. **Instalar las dependencias de Composer:**
+
+```bash
+composer install
+```
+
+2. **Copiar el entorno:**
+
+```bash
+cp .env.example .env
+```
+
+3. **Generar la llave:**
+
+```bash
+php artisan key:generate
+```
+
+4. **Reemplazar la URL del entorno** por la que nos entrega Firebase (ejemplo):
+
+```env
+APP_URL=https://9000-firebase-dwi-25-2-clases-1752585818839.cluster-qhrn7lb3szcfcud6uanedbkjnm.cloudworkstations.dev
+```
+
+5. **Migrar la base de datos:**
+
+```bash
+php artisan migrate
+```
+
+*Preguntará si queremos crear la base de datos SQLite, respondemos **YES***
 
 ## Características
 
