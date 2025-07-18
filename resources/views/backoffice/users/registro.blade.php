@@ -119,10 +119,92 @@
                   placeholder="EJ: Juan Pérez Jackson"
                   autofocus />
               </div>
+
+              <!-- RUT -->
+              <div class="mb-6 form-control-validation">
+                <label for="rut" class="form-label">RUT</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="rut"
+                  name="rut"
+                  placeholder="Sin puntos y con guión"
+                  required
+                  pattern="^\d{7,8}-[0-9Kk]$" 
+                />
+              </div>
+
               <div class="mb-6 form-control-validation">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="username" placeholder="Ingrese su email" />
               </div>
+
+              <!-- Teléfono -->
+              <div class="mb-6 form-control-validation">
+                <label for="phone" class="form-label">Teléfono</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phone"
+                  name="phone"
+                  placeholder="Ej: +56912345678"
+                  required
+                  pattern="^\+56\d{9}$"
+                />
+              </div>
+
+              <!-- WhatsApp -->
+              <div class="mb-6 form-control-validation">
+                <label for="wsp" class="form-label">Whatsapp</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="wsp"
+                  name="wsp"
+                  placeholder="Ej: +56987654321"
+                  pattern="^\+56\d{9}$"
+                />
+              </div>
+
+              <!-- Comuna -->
+              <div class="mb-6 form-control-validation">
+                <label for="commune" class="form-label">Comuna</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="commune"
+                  name="commune"
+                  placeholder="Ej: Santiago"
+                  required
+                />
+              </div>
+
+              <!-- Posición -->
+              <div class="mb-6 form-control-validation">
+                <label for="position" class="form-label">Posición de campo</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="position"
+                  name="position"
+                  placeholder="Ej: Defensa"
+                  required
+                />
+              </div>
+
+              <!-- Profesión -->
+              <div class="mb-6 form-control-validation">
+                <label for="profession" class="form-label">Profesión</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="profession"
+                  name="profession"
+                  placeholder="Ej: Ingeniero"
+                  required
+                />
+              </div>
+
               <div class="mb-6 form-password-toggle form-control-validation">
                 <label class="form-label" for="password">Contraseña</label>
                 <div class="input-group input-group-merge">
@@ -136,6 +218,7 @@
                   <span class="input-group-text cursor-pointer"><i class="icon-base ti tabler-eye-off"></i></span>
                 </div>
               </div>
+
               <div class="mb-6 form-password-toggle form-control-validation">
                 <label class="form-label" for="password_confirmation">Vuelva a escribir su contraseña</label>
                 <div class="input-group input-group-merge">
@@ -149,6 +232,7 @@
                   <span class="input-group-text cursor-pointer"><i class="icon-base ti tabler-eye-off"></i></span>
                 </div>
               </div>
+
               <div class="mb-6 mt-8">
                 <div class="form-check mb-8 ms-2">
                   <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />

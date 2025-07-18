@@ -1834,15 +1834,15 @@
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-4 my-2">
                               <li class="list-inline-item d-flex gap-2 align-items-center">
                                 <i class="icon-base ti tabler-palette icon-lg"></i
-                                ><span class="fw-medium">UX Designer</span>
+                                ><span class="fw-medium">{{ Auth::user()->profession }}</span>
                               </li>
                               <li class="list-inline-item d-flex gap-2 align-items-center">
                                 <i class="icon-base ti tabler-map-pin icon-lg"></i
-                                ><span class="fw-medium">Vatican City</span>
+                                ><span class="fw-medium">{{ Auth::user()->commune }}</span>
                               </li>
                               <li class="list-inline-item d-flex gap-2 align-items-center">
                                 <i class="icon-base ti tabler-calendar icon-lg"></i
-                                ><span class="fw-medium"> Joined April 2021</span>
+                                ><span class="fw-medium"> Registrado en {{ Auth::user()->created_at->format('M Y') }}</span>
                               </li>
                             </ul>
                           </div>
@@ -1896,41 +1896,52 @@
                     <div class="card-body">
                       <p class="card-text text-uppercase text-body-secondary small mb-0">About</p>
                       <ul class="list-unstyled my-3 py-1">
+
                         <li class="d-flex align-items-center mb-4">
                           <i class="icon-base ti tabler-user icon-lg"></i
-                          ><span class="fw-medium mx-2">Full Name:</span> <span>{{ Auth::user()->name }}</span>
+                          ><span class="fw-medium mx-2">Nombre completo:</span> <span>{{ Auth::user()->name }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-4">
+                          <i class="icon-base ti tabler-user icon-lg"></i
+                          ><span class="fw-medium mx-2">Rut:</span> <span>{{ Auth::user()->rut }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-4">
                           <i class="icon-base ti tabler-check icon-lg"></i><span class="fw-medium mx-2">Status:</span>
-                          <span>Active</span>
+                          <span>Activo</span>
                         </li>
                         <li class="d-flex align-items-center mb-4">
-                          <i class="icon-base ti tabler-crown icon-lg"></i><span class="fw-medium mx-2">Role:</span>
-                          <span>Developer</span>
+                          <i class="icon-base ti tabler-layout-grid icon-lg"></i><span class="fw-medium mx-2">Posición de campo:</span>
+                          <span>{{ Auth::user()->position }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-4">
-                          <i class="icon-base ti tabler-flag icon-lg"></i><span class="fw-medium mx-2">Country:</span>
-                          <span>USA</span>
+                          <i class="icon-base ti tabler-crown icon-lg"></i><span class="fw-medium mx-2">Profesion:</span>
+                          <span>{{ Auth::user()->profession }}</span>
                         </li>
+                        <li class="d-flex align-items-center mb-4">
+                          <i class="icon-base ti tabler-flag icon-lg"></i><span class="fw-medium mx-2">Comuna:</span>
+                          <span>{{ Auth::user()->commune }}</span>
+                        </li>
+                        {{--
                         <li class="d-flex align-items-center mb-2">
                           <i class="icon-base ti tabler-language icon-lg"></i
                           ><span class="fw-medium mx-2">Languages:</span> <span>English</span>
-                        </li>
+                        </li> --}}
                       </ul>
-                      <p class="card-text text-uppercase text-body-secondary small mb-0">Contacts</p>
+
+                      <p class="card-text text-uppercase text-body-secondary small mb-0">Contacto</p>
                       <ul class="list-unstyled my-3 py-1">
                         <li class="d-flex align-items-center mb-4">
                           <i class="icon-base ti tabler-phone-call icon-lg"></i
-                          ><span class="fw-medium mx-2">Contact:</span>
-                          <span>(123) 456-7890</span>
+                          ><span class="fw-medium mx-2">Telefono:</span>
+                          <span>{{ Auth::user()->phone }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-4">
                           <i class="icon-base ti tabler-messages icon-lg"></i
-                          ><span class="fw-medium mx-2">Skype:</span> <span>john.doe</span>
+                          ><span class="fw-medium mx-2">Whatsapp:</span> <span>{{ Auth::user()->wsp }}</span>
                         </li>
                         <li class="d-flex align-items-center mb-4">
                           <i class="icon-base ti tabler-mail icon-lg"></i><span class="fw-medium mx-2">Email:</span>
-                          <span>john.doe@example.com</span>
+                          <span>{{ Auth::user()->username }}</span>
                         </li>
                       </ul>
                       <p class="card-text text-uppercase text-body-secondary small mb-0">Teams</p>

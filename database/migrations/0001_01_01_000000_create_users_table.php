@@ -14,7 +14,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // Nombre del usuario
+            $table->string('rut')->unique(); // Rut del usuario
             $table->string('username')->unique(); // Correo electrónico del usuario
+            $table->string('phone')->unique(); // Telefono del usuario
+            $table->string('wsp')->unique(); // Whatsapp del usuario (puede ser distinto al telefono)
+            $table->string('commune'); // Comuna del usuario
+            $table->string('position'); // Posicion en el campo de futbol del usuario
+            $table->string('profession'); // Profesion del usuario
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password'); // contrasenia
             $table->rememberToken();

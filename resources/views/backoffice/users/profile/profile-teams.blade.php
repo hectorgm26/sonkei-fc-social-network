@@ -1830,13 +1830,13 @@
                             <ul
                               class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-4 my-2">
                               <li class="list-inline-item">
-                                <i class="icon-base ti tabler-palette icon-lg me-2"></i> UX Designer
+                                <i class="icon-base ti tabler-palette icon-lg me-2"></i> {{ Auth::user()->profession }}
                               </li>
                               <li class="list-inline-item">
-                                <i class="icon-base ti tabler-map-pin icon-lg me-2"></i> Vatican City
+                                <i class="icon-base ti tabler-map-pin icon-lg me-2"></i> {{ Auth::user()->commune }}
                               </li>
                               <li class="list-inline-item">
-                                <i class="icon-base ti tabler-calendar icon-lg me-2"></i> Joined April 2021
+                                <i class="icon-base ti tabler-calendar icon-lg me-2"></i> Registrado en {{ Auth::user()->created_at->format('M Y') }}
                               </li>
                             </ul>
                           </div>

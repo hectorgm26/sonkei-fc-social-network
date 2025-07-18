@@ -112,17 +112,19 @@
 
             <form id="formAuthentication" class="mb-6" action="{{ route('user.form.login') }}" method="POST">    
                 @csrf
-              <div class="mb-6 form-control-validation">
-                <label for="email" class="form-label">Usuario</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  name="username"
-                  placeholder="Ingrese su usuario"
-                  value="scabezas@ciisa.cl"
-                  autofocus />
-              </div>
+                <div class="mb-6 form-control-validation">
+                  <label for="rut" class="form-label">RUT</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="rut"
+                    name="rut"
+                    placeholder="Sin puntos y con guión"
+                    required
+                    pattern="^\d{7,8}-[0-9Kk]$" 
+                  />
+                </div>
+
               <div class="mb-6 form-password-toggle form-control-validation">
                 <label class="form-label" for="password">Contraseña</label>
                 <div class="input-group input-group-merge">
@@ -138,6 +140,7 @@
                   <span class="input-group-text cursor-pointer"><i class="icon-base ti tabler-eye-off"></i></span>
                 </div>
               </div>
+
               <div class="my-8">
                 <div class="d-flex justify-content-between">
                   <div class="form-check mb-0 ms-2">

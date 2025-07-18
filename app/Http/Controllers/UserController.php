@@ -47,6 +47,20 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'email', 'min:8', 'max:50', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Password::defaults()],
+
+            // Validación para el campo 'phone'
+            'phone' => ['required', 'string', 'regex:/^\+56\d{9}$/', 'unique:' . User::class],
+
+            // Validación para el campo 'wsp' (Whatsapp)
+            'wsp' => ['nullable', 'string', 'regex:/^\+56\d{9}$/', 'unique:' . User::class],
+
+            // Validación para el 'rut' (asegurándonos que sea único)
+            'rut' => ['required', 'string', 'unique:' . User::class, 'regex:/^\d{7,8}-[0-9Kk]$/'],
+
+            // Otros campos que no se mencionan directamente pero puedes agregar restricciones
+            'commune' => ['required', 'string', 'max:255'],
+            'position' => ['required', 'string', 'max:255'],
+            'profession' => ['required', 'string', 'max:255']
         ], $this->messages);
 
         // 3. Creación del nuevo usuario en la base de datos
@@ -54,6 +68,12 @@ class UserController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'password' => Hash::make($request->password),
+            'phone' => $request->phone,
+            'wsp' => $request->wsp,
+            'rut' => $request->rut,
+            'commune' => $request->commune,
+            'position' => $request->position,
+            'profession' => $request->profession,
         ]);
 
         // Opcional: Disparar el evento Registered si necesitas enviar correos de verificación, etc.
@@ -93,28 +113,35 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        // Paso 1: Ver qué llega en la solicitud del formulario
-        // dd($request->all());
-
+        // Paso 1: Validación de los datos del formulario - ahora se usara el rut para iniciar sesion
         $credentials = $request->validate([
-            'username' => ['required', 'email'],
+            'rut' => ['required', 'string', 'regex:/^\d{7,8}-[0-9Kk]$/'],  // Validación del formato del RUT
             'password' => ['required'],
-        ]);
+        ], $this->messages);
 
-        // dd($credentials);
+        // Paso 2: Buscar al usuario por el RUT
+        $user = User::where('rut', $credentials['rut'])->first();
 
-        if (Auth::attempt($credentials)) {
+        // Paso 3: Verificar si el usuario existe y si la contraseña es correcta
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Si las credenciales son correctas, autenticamos al usuario
+            Auth::login($user);
+
+            // Regenerar la sesión para prevenir ataques de secuestro de sesión
             $request->session()->regenerate();
-            $user = Auth::user();
 
-            return redirect()->route('dashboard')->with('success', "Bienvenido {$user->name}, tiene una sesión iniciada exitosamente.");
+            // Redirigir al dashboard con un mensaje de éxito
+            return redirect()->route('dashboard')->with('success', "Bienvenido {$user->name}, sesión iniciada exitosamente.");
         }
 
+        // Si no se encuentra el usuario o la contraseña es incorrecta, devolvemos un error
         return back()->withErrors([
-            'username' => 'Las credenciales no coinciden con nuestros registros.',
-        ])->onlyInput('username');
+            'rut' => 'Las credenciales no coinciden con nuestros registros.',
+        ])->onlyInput('rut');
     }
 
+
+    // CERRAR SESION
     public function logout(Request $request)
     {
         Auth::logout();
@@ -123,6 +150,7 @@ class UserController extends Controller
         return redirect()->route('/')->with('success', 'Sesión cerrada exitosamente.');
     }
 
+    // VER EL PERFIL DEL USUARIO AUTENTICADO
     public function profileUser()
     {
         if (!Auth::check()) {
