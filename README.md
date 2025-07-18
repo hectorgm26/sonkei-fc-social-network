@@ -21,7 +21,7 @@ El sistema está construido utilizando el framework **Laravel 12** y utiliza **S
 
 #### Requisitos previos
 
-1. **PHP** versión 8.1 o superior.
+1. **PHP** versión 8.2 o superior.
 2. **Composer** para gestionar las dependencias de PHP.
 3. **SQLite** para la base de datos.
 4. **Node.js** y **NPM** para la gestión de dependencias del frontend.
